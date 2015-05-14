@@ -31,8 +31,11 @@ class Game
       store_p1_move(player_one_move)
 
       # update board
+      update_board(@player_one.moves.last, @player_one.token)
 
       # display board
+      @board.display(@board.current_board)
+      puts ""
 
       # asker player 2
       puts "- Player One your turn - "
@@ -44,8 +47,11 @@ class Game
       store_p2_move(player_two_move)
 
       # update board
+      update_board(@player_two.moves.last, @player_two.token)
 
       # display board
+      @board.display(@board.current_board)
+      puts ""
 
       # check for winner
     #end loop
@@ -71,6 +77,10 @@ class Game
     i = move.to_i
     i -= 1
     @player_two.moves.push(i)
+  end
+
+  def update_board(move_by_index, token)
+    @board.current_board[move_by_index] = token
   end
 
   def display_winner
