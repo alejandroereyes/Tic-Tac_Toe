@@ -21,21 +21,31 @@ class Game
     # begin loop if no winner
     #while @winner == ""
 
-      # asker user where to go
+      # asker player 1
       puts "- Player One your turn - "
       print "- Select 1 thru 9 - "
       player_one_move = gets.chomp
+      puts ""
 
-      # store user's move
+      # store player 1 move
       store_p1_move(player_one_move)
 
-      # display user's move
+      # update board
 
-      # computer will chose a spot
+      # display board
 
-      # store comp's move
+      # asker player 2
+      puts "- Player One your turn - "
+      print "- Select 1 thru 9 - "
+      player_two_move = gets.chomp
+      puts ""
 
-      # display comp's use
+      #store player 2 move
+      store_p2_move(player_two_move)
+
+      # update board
+
+      # display board
 
       # check for winner
     #end loop
@@ -55,6 +65,12 @@ class Game
     i = move.to_i
     i -= 1
     @player_one.moves.push(i)
+  end
+
+  def store_p2_move(move)
+    i = move.to_i
+    i -= 1
+    @player_two.moves.push(i)
   end
 
   def display_winner
