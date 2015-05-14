@@ -1,5 +1,6 @@
 require_relative 'player'
 require_relative 'board'
+require_relative 'rule'
 
 class Game
 
@@ -7,8 +8,9 @@ class Game
     @player_one = Player.new('Player One', "X")
     @player_two = Player.new('Player Two', "O")
     @board = Board.new
-    puts "Heye"
+    @rules = Rule.new
     @winner = ""
+    @out_of_moves = false
   end
 
   def start
@@ -19,7 +21,7 @@ class Game
     puts ""
 
     # begin loop if no winner
-    #while @winner == ""
+    #while @winner == "" || !@out_of_moves
 
       # asker player 1
       puts "- Player One your turn - "
@@ -38,7 +40,7 @@ class Game
       puts ""
 
       # asker player 2
-      puts "- Player One your turn - "
+      puts "- Player Two your turn - "
       print "- Select 1 thru 9 - "
       player_two_move = gets.chomp
       puts ""
