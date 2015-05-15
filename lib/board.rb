@@ -6,6 +6,11 @@ class Board
   end
 
   def display(board_array)
+    system ('clear')
+    print "\n \n \n \n \n \n "
+    puts "     -----------------"
+    puts "      |  Tic Tac Toe  |"
+    puts "      -----------------"
     print "          " + board_array[0] + " |"
     print " " + board_array[1] + " |"
     puts " " + board_array[2]

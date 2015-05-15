@@ -7,7 +7,9 @@ class Game
   def initialize
     @player_one = Player.new('Player One', "X")
     @player_two = Player.new('Player Two', "O")
+    @computer = Player.new('Hal', "O")
     @board = Board.new
+    @game_mode = false
     # @rule = Rule.new
     @winner = ""
     @out_of_moves = 0
@@ -25,6 +27,8 @@ class Game
   def start
 
     opener
+
+    decide_game_mode
 
     @board.display(@board.current_board)
     puts ""
@@ -59,13 +63,14 @@ class Game
       @board.display(@board.current_board)
       puts ""
 
-      #check for winner
+      # check for winner
       # @rule.
       did_anyone_win(@player_one.name, @player_one.moves)
 
       #if no winner continue & there are still moves left
       break if @winner != "" || @out_of_moves >= 9
 
+      if !@game_mode # determine whether human or computer will play
         # asker player 2
         puts "- Player Two your turn - "
         print "- Select 1 thru 9 : "
@@ -78,24 +83,48 @@ class Game
           print "- Select 1 thru 9 : "
           player_two_move = gets.chomp.to_i
         end
+      else # play against computer
+        # comp picks a move
+        computer_move = @board.current_board.sample
+
+        # Validate computer's move doesn't match a currnet move
+        while computer_move == @player_one.token || computer_move == @computer.token
+          computer_move = @board.current_board.sample
+        end
+
+        computer_move = computer_move.to_i
+      end # input for game mode cond
 
         # Track number of moves
         @out_of_moves += 1
         puts ""
 
-        #store player 2 move
-        store_p2_move(player_two_move)
+        if !@game_mode # Determine if human player or computer
+          #store human player 2 move
+          store_p2_move(player_two_move)
 
-        # update board
-        update_board(@player_two.moves.last, @player_two.token)
+          # update board
+          update_board(@player_two.moves.last, @player_two.token)
+        else # computer player
+          # store computer's move
+          store_computer_move(computer_move)
+
+          # update board
+          update_board(@computer.moves.last, @computer.token)
+        end
 
         # display board
         @board.display(@board.current_board)
         puts ""
 
-        # check for winner
-        #@rule.
-        did_anyone_win(@player_two.name, @player_two.moves)
+        if !@game_mode # Determine if human player or computer
+          # check for winner
+          #@rule.
+          did_anyone_win(@player_two.name, @player_two.moves)
+        else # computer player
+          did_anyone_win(@computer.name, @computer.moves)
+        end
+
     end # while loop
 
       display_winner
@@ -106,6 +135,24 @@ class Game
     puts "      |  Tic Tac Toe  |"
     puts "      -----------------"
   end
+
+  def decide_game_mode
+    puts "Enter 1 to play against the computer"
+    print "Enter 2 for two player mode : "
+    mode_input = gets.chomp.to_i
+
+    while mode_input != 1 && mode_input != 2
+      system ('say "Invalid entry"')
+      print "Enter 2 for two player mode : "
+      mode_input = gets.chomp.to_i
+    end
+
+    if mode_input == 1
+      @game_mode = true # computer player
+    else
+      @game_mode = false # human player
+    end
+  end # decide game mode
 
   def store_p1_move(move)
     i = move
@@ -119,6 +166,12 @@ class Game
     @player_two.moves.push(i)
   end
 
+  def store_computer_move(move)
+    i = move
+    i -= 1
+    @computer.moves.push(i)
+  end
+
   def update_board(move_by_index, token)
     @board.current_board[move_by_index] = token
   end
@@ -128,11 +181,15 @@ class Game
       puts "Congratulations #{@player_one.name} is the winner!"
     elsif @winner == @player_two.name
       puts "#{@player_two.name} won...better luck next time #{@player_one.name}."
+    elsif @winner == @computer.name
+      puts "#{@computer.name} says, 'You just got Skynetted!'"
+      system ('say "Boo"')
+      system ('say "Yeah"')
     else
       puts "...Looks like we have a tie..."
     end
     puts ""
-    puts "    ------------Game Over------------"
+    puts "                Game Over"
   end
 
   def good_move(player_move)
