@@ -35,20 +35,15 @@ class Game
       # asker player 1
       puts "- Player One your turn - "
       print "- Select 1 thru 9 : "
-      player_one_move = gets.chomp
+      player_one_move = gets.chomp.to_i
 
       # Validate player's move is 1 -9
-      while player_one_move.to_i < 1 || player_one_move.to_i > 9 #|| good_move(player_one_move)
+      while player_one_move <= 0 || player_one_move >= 10 || !good_move(player_one_move)
         system ('say "I do not like that number"')
         puts "- Player One your turn - "
         print "- Select 1 thru 9 : "
-        player_one_move = gets.chomp
+        player_one_move = gets.chomp.to_i
       end
-
-      # Validate player's move - loop
-      # while good_move(player_one_move)
-        # player_one_move = gets.chomp
-      # end
 
       # Track number of moves
       @out_of_moves += 1
@@ -74,20 +69,15 @@ class Game
         # asker player 2
         puts "- Player Two your turn - "
         print "- Select 1 thru 9 : "
-        player_two_move = gets.chomp
+        player_two_move = gets.chomp.to_i
 
         # Validate player's move is 1 -9
-        while player_two_move.to_i < 1 || player_two_move.to_i > 9 #|| good_move(player_two_move)
+        while player_two_move <= 0 || player_two_move >= 10 || !good_move(player_two_move)
           system ('say "I do not like that number"')
           puts "- Player One your turn - "
           print "- Select 1 thru 9 : "
-          player_two_move = gets.chomp
+          player_two_move = gets.chomp.to_i
         end
-
-        # Validate player's move not played before - loop
-        # while good_move(player_one_move)
-          # player_one_move = gets.chomp
-        # end
 
         # Track number of moves
         @out_of_moves += 1
@@ -118,13 +108,13 @@ class Game
   end
 
   def store_p1_move(move)
-    i = move.to_i
+    i = move
     i -= 1
     @player_one.moves.push(i)
   end
 
   def store_p2_move(move)
-    i = move.to_i
+    i = move
     i -= 1
     @player_two.moves.push(i)
   end
@@ -146,8 +136,8 @@ class Game
   end
 
   def good_move(player_move)
-    move = player_move.to_i -= 1
-    @board.current.include?(move)
+    move = player_move.to_s
+    @board.current_board.include?(move)
   end
 
   def did_anyone_win(player_name, player_moves) # if player's positions match in any of these positions they win
