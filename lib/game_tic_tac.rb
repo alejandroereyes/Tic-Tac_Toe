@@ -1,6 +1,6 @@
 require_relative 'player'
 require_relative 'board'
-require_relative 'rule'
+# require_relative 'rule'
 
 class Game
 
@@ -8,7 +8,7 @@ class Game
     @player_one = Player.new('Player One', "X")
     @player_two = Player.new('Player Two', "O")
     @board = Board.new
-    @rules = Rule.new
+    # @rule = Rule.new
     @winner = ""
     @out_of_moves = false
   end
@@ -56,12 +56,15 @@ class Game
       puts ""
 
       # check for winner
+      #@rule.did_anyone_win(@player_one.name, @player_one.moves)
+
+
     #end loop
 
     if @winner != ""
       display_winner
-    end
-  end
+    end # if winner condition
+  end # start method
 
   def opener
     puts "      -----------------"
@@ -93,6 +96,5 @@ class Game
     else
       puts "...Looks like we have a tie..."
     end
-  end
-
-end
+  end # display method
+end # Game Class

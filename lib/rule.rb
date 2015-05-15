@@ -12,25 +12,29 @@ def initialize
 end
 
 
-# def did_anyone_win(@player.name, @player.moves) if X in any of these positions X wins
+# def did_anyone_win(@player.name, @player.moves) #if X in any of these positions X wins
 
-# @win_array.each do |mini_array| look at each individual element in win_array
-
-  # loop thru player array compare each individual position
-  # to number in array
-  #
-
+  # @win_array.each do |mini_array| #look at each mini array in win_array
     # counter = 0
 
-    # if they match add one to counter
-      #counter += 1
-    #end
+    # mini_array.each do |win_pos| #look at each element in mini array
+
+      # loop thru player array compare each individual position
+      # to number in array
+      # @player.moves.each do |position|
+
+        # if @player.moves == win_pos #if they match add one to counter
+          #counter += 1
+        #end - count up cond
+      #end - 3rd loop
+    #end - 2nd loop
 
     #if counter == 3
       #@winner = player_name
-    #end
-  #end
-#end
+    #end - counter cond
+
+  #end - 1st loop
+#end - method
 
 
 
