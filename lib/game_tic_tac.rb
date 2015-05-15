@@ -54,8 +54,8 @@ class Game
       did_anyone_win(@player_one.name, @player_one.moves)
 
       #if no winner continue & there are still moves left
-      # if @winner = "" && @out_of_moves < 9
       break if @winner != "" || @out_of_moves >= 9
+
         # asker player 2
         puts "- Player Two your turn - "
         print "- Select 1 thru 9 : "
@@ -76,12 +76,9 @@ class Game
         # check for winner
         #@rule.
         did_anyone_win(@player_two.name, @player_two.moves)
-      # end # no winner & moves left cond
     end # while loop
-    puts "#{@winner} shown as winner" # this is to debug
-    if @winner != "" || @out_of_moves >= 9
+
       display_winner
-    end # if winner condition
   end # start method
 
   def opener
@@ -107,13 +104,15 @@ class Game
   end
 
   def display_winner
-    if @winner = @player_one.name
-      puts "Congratulations #{@player_one.name} won!"
-    elsif @winner = @player_two.name
+    if @winner == @player_one.name
+      puts "Congratulations #{@player_one.name} is the winner!"
+    elsif @winner == @player_two.name
       puts "#{@player_two.name} won...better luck next time #{@player_one.name}."
     else
       puts "...Looks like we have a tie..."
     end
+    puts ""
+    puts "    ------------Game Over------------"
   end # display method
 
   def did_anyone_win(player_name, player_moves) # if player's positions match in any of these positions they win
@@ -133,10 +132,8 @@ class Game
           end # count up cond
         end # 3rd loop
       end # 2nd loop
-      puts "#{player_name} #{@counter} #{@winner}" #this is to debug
       if @counter == 3 # if three matches while looking at a mini array, player has won
         @winner = player_name
-        puts "#{@counter} at time winner is selected" #this is to debug
       end # winner cond
     end # 1st loop
   end # method
