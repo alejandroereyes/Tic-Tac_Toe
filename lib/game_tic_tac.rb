@@ -36,6 +36,21 @@ class Game
       puts "- Player One your turn - "
       print "- Select 1 thru 9 : "
       player_one_move = gets.chomp
+
+      # Validate player's move is 1 -9
+      while player_one_move.to_i < 1 || player_one_move.to_i > 9 #|| good_move(player_one_move)
+        system ('say "I do not like that number"')
+        puts "- Player One your turn - "
+        print "- Select 1 thru 9 : "
+        player_one_move = gets.chomp
+      end
+
+      # Validate player's move - loop
+      # while good_move(player_one_move)
+        # player_one_move = gets.chomp
+      # end
+
+      # Track number of moves
       @out_of_moves += 1
       puts ""
 
@@ -60,6 +75,21 @@ class Game
         puts "- Player Two your turn - "
         print "- Select 1 thru 9 : "
         player_two_move = gets.chomp
+
+        # Validate player's move is 1 -9
+        while player_two_move.to_i < 1 || player_two_move.to_i > 9 #|| good_move(player_two_move)
+          system ('say "I do not like that number"')
+          puts "- Player One your turn - "
+          print "- Select 1 thru 9 : "
+          player_two_move = gets.chomp
+        end
+
+        # Validate player's move not played before - loop
+        # while good_move(player_one_move)
+          # player_one_move = gets.chomp
+        # end
+
+        # Track number of moves
         @out_of_moves += 1
         puts ""
 
@@ -113,7 +143,12 @@ class Game
     end
     puts ""
     puts "    ------------Game Over------------"
-  end # display method
+  end
+
+  def good_move(player_move)
+    move = player_move.to_i -= 1
+    @board.current.include?(move)
+  end
 
   def did_anyone_win(player_name, player_moves) # if player's positions match in any of these positions they win
 
