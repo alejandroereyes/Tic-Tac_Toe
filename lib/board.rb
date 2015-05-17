@@ -6,7 +6,7 @@ class Board
   end
 
   def display(board_array)
-    system ('clear')
+    system ('clear') # restore clear after debugging
     print "\n \n \n \n \n \n "
     puts "     -----------------"
     puts "      |  Tic Tac Toe  |"

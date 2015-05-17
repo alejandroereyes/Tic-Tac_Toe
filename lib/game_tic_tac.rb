@@ -1,6 +1,5 @@
 require_relative 'player'
 require_relative 'board'
-# require_relative 'rule'
 
 class Game
 
@@ -10,7 +9,6 @@ class Game
     @computer = Player.new('Hal', "O")
     @board = Board.new
     @game_mode = false
-    # @rule = Rule.new
     @winner = ""
     @out_of_moves = 0
     @win_array = [[0,1,2],
@@ -131,13 +129,16 @@ class Game
   end # start method
 
   def opener
+    system ('clear')
+    puts "\n \n \n \n \n"
     puts "      -----------------"
     puts "      |  Tic Tac Toe  |"
     puts "      -----------------"
+    puts "\n"
   end
 
   def decide_game_mode
-    puts "Enter 1 to play against the computer"
+    puts "Enter 1 to play against the computer or"
     print "Enter 2 for two player mode : "
     mode_input = gets.chomp.to_i
 
@@ -184,7 +185,7 @@ class Game
     elsif @winner == @computer.name
       puts "#{@computer.name} says, 'You just got Skynetted!'"
       system ('say "Boo"')
-      system ('say "Yeah"')
+      system ('say "Yaw"')
     else
       puts "...Looks like we have a tie..."
     end
